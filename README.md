@@ -1,4 +1,4 @@
-## Ecomart = Product-Category Management
+## Ecomart : Product-Category Management
 
 This Project is capable of the storing the Product ans we can perform creat,update,delete and edit the data releated to products
 We have mapped one to many relations between product and category i.e One category can have multiple products.
@@ -6,10 +6,10 @@ Server side Pagination help to load the data into chuck which improves the perfo
 
 ## Installation
 
-Install my-project with npm
+Install "Ecomart" using Git Clone
 
 ```bash
-  1. Unzip the Folder ecommart
+  1. Unzip the Folder ecommart or clone using Git
   2. Open the Eclipse IDE
   3. Import the Project into Eclipse
   4. Use Maven-> Update Project by left clicking on project 
@@ -21,7 +21,7 @@ To deploy this project run
 
 ```bash
   1. Finish the import and maven update
-  2. open com.tas.ecomart package
+  2. open com.task.ecomart package
   3. Before running make sure you have mysql schema named as "task"
   4. Once all above are avaliable with you then run the project
   5. Now your SpringBoot application is running on localhost:8080
@@ -50,9 +50,9 @@ To deploy this project run
 
 #### Images
 **1 . API Created**
-![API Created](/Ecomart/src/main/resources/static/images/API.png)
+![API Created](/ecomart/src/main/resources/static/images/API.png)
 
 **2. Project Folder Structure**
 
-![Folder Structure](/Ecomart/src/main/resources/static/images/folderView.png)
+![Folder Structure](/ecomart/src/main/resources/static/images/folderView.png)
 
