@@ -1,4 +1,4 @@
-## ProductCategoryCrud
+## Ecomart = Product-Category Management
 
 This Project is capable of the storing the Product ans we can perform creat,update,delete and edit the data releated to products
 We have mapped one to many relations between product and category i.e One category can have multiple products.
@@ -9,7 +9,7 @@ Server side Pagination help to load the data into chuck which improves the perfo
 Install my-project with npm
 
 ```bash
-  1. Unzip the Folder ProductCategoryCrud
+  1. Unzip the Folder ecommart
   2. Open the Eclipse IDE
   3. Import the Project into Eclipse
   4. Use Maven-> Update Project by left clicking on project 
@@ -21,9 +21,9 @@ To deploy this project run
 
 ```bash
   1. Finish the import and maven update
-  2. open com.crud.ProductCategoryCrud package
-  3. Before running make sure you have mysql schema named as productdatabase
-  4. Once all above are availbe with you then run the project
+  2. open com.tas.ecomart package
+  3. Before running make sure you have mysql schema named as "task"
+  4. Once all above are avaliable with you then run the project
   5. Now your SpringBoot application is running on localhost:8080
 ```
 ## API Reference
@@ -50,9 +50,9 @@ To deploy this project run
 
 #### Images
 **1 . API Created**
-![API Created](/ProductCategoryCrud/src/main/resources/static/images/API.png)
+![API Created](/Ecomart/src/main/resources/static/images/API.png)
 
 **2. Project Folder Structure**
 
-![Folder Structure](/ProductCategoryCrud/src/main/resources/static/images/folderView.png)
+![Folder Structure](/Ecomart/src/main/resources/static/images/folderView.png)
 
