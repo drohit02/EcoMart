@@ -26,110 +26,113 @@ public class ProductService {
 	private CategoryRepository categoryRepository;
 
 	public List<ProductDTO> getAllProducts(Integer pageNumber, Integer pageSize) {
-	    Pageable pages = PageRequest.of(pageNumber, pageSize);
-	    Page<Product> productPages = this.productRepository.findAll(pages);
+		Pageable pages = PageRequest.of(pageNumber, pageSize);
+		Page<Product> productPages = this.productRepository.findAll(pages);
 
-	    List<Product> products = productPages.getContent();
+		List<Product> products = productPages.getContent();
 
-	    if (products.isEmpty()) {
-	        throw new ResourceNotFoundException("Product List is empty");
-	    }
+		if (products.isEmpty()) {
+			throw new ResourceNotFoundException("Product List is empty");
+		}
 
-	    return products.stream()
-	                   .map(this::productToProductDTO)
-	                   .toList();
+		return products.stream().map(this::productToProductDTO).toList();
 	}
 
 	public List<ProductDTO> getProductWithCategoryId(Long categoryId, Integer pageNumber, Integer pageSize) {
-	    Category category = this.categoryRepository.findById(categoryId)
-	            .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
+		Category category = this.categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
 
-	    Pageable pageData = PageRequest.of(pageNumber, pageSize);
-	    Page<Product> productPages = this.productRepository.findAllByCategory(category, pageData);
+		Pageable pageData = PageRequest.of(pageNumber, pageSize);
+		Page<Product> productPages = this.productRepository.findAllByCategory(category, pageData);
 
-	    List<Product> products = productPages.getContent();
-	    if (products.isEmpty()) {
-	        throw new APIException("Product list is empty");
-	    }
+		List<Product> products = productPages.getContent();
+		if (products.isEmpty()) {
+			throw new APIException("Product list is empty");
+		}
 
-	    return products.stream()
-	                   .map(this::productToProductDTO)
-	                   .toList();
+		return products.stream().map(this::productToProductDTO).toList();
 	}
 
 	public ProductDTO addProduct(ProductDTO productDTO, Long categoryId) {
-	    Category category = this.categoryRepository.findById(categoryId)
-	            .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
+		Category category = this.categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
 
-	    boolean productPresent = category.getProducts().stream()
-	                                      .noneMatch(product -> product.getProductName().equals(productDTO.getProductName()));
+		boolean productPresent = category.getProducts().stream()
+				.noneMatch(product -> product.getProductName().equals(productDTO.getProductName()));
 
-	    if (productPresent) {
-	        Product product = productDtoToProduct(productDTO);
-	        product.setCategory(category);
-	        product.setSpecialPrice(calculateSpecialPrice(product));
-	        Product savedProduct = this.productRepository.save(product);
+		if (productPresent) {
+			Product product = productDtoToProduct(productDTO);
+			product.setCategory(category);
+			product.setSpecialPrice(calculateSpecialPrice(product));
+			Product savedProduct = this.productRepository.save(product);
 
-	        return productToProductDTO(savedProduct);
-	    } else {
-	        throw new ResourceNotFoundException("Product is already present in database!!");
-	    }
+			return productToProductDTO(savedProduct);
+		} else {
+			throw new ResourceNotFoundException("Product is already present in database!!");
+		}
 	}
 
 	public ProductDTO updateExitingProductData(ProductDTO productDTO, Long productId) {
-	    Product savedProduct = this.productRepository.findById(productId)
-	            .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
-	    Product updatedProduct = updateProductData(savedProduct, productDtoToProduct(productDTO));
+		Product savedProduct = this.productRepository.findById(productId)
+				.orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
+		Product updatedProduct = updateProductData(savedProduct, productDtoToProduct(productDTO));
 
-	    return productToProductDTO(updatedProduct);
+		return productToProductDTO(updatedProduct);
 	}
 
 	public String deleteProductById(Long productId) {
-	    Product product = this.productRepository.findById(productId)
-	            .orElseThrow(() -> new ResourceNotFoundException("Product", "ProductId", productId));
+		Product product = this.productRepository.findById(productId)
+				.orElseThrow(() -> new ResourceNotFoundException("Product", "ProductId", productId));
 
-	    this.productRepository.deleteById(product.getProductId());
-	    return "Product Removed Successfully!!!";
+		this.productRepository.deleteById(product.getProductId());
+		return "Product Removed Successfully!!!";
+	}
+
+	public ProductDTO loadProductById(Long productId) {
+		Product savedProduct = this.productRepository.findById(productId)
+				.orElseThrow(() -> new ResourceNotFoundException("Product", "ProductId", productId));
+		
+		return productToProductDTO(savedProduct);
 	}
 
 	/*-----------------------------------Utility Methods-----------------------------------------*/
 
 	private double calculateSpecialPrice(Product product) {
-	    return product.getPrice() - (product.getDiscount() * 0.01) * product.getPrice();
+		return product.getPrice() - (product.getDiscount() * 0.01) * product.getPrice();
 	}
 
 	private Product updateProductData(Product savedProduct, Product product) {
-	    savedProduct.setProductName(product.getProductName());
-	    savedProduct.setDescription(product.getDescription());
-	    savedProduct.setPrice(product.getPrice());
-	    savedProduct.setDiscount(product.getDiscount());
-	    savedProduct.setQuantity(product.getQuantity());
-	    savedProduct.setSpecialPrice(calculateSpecialPrice(product));
-	    return this.productRepository.save(savedProduct);
+		savedProduct.setProductName(product.getProductName());
+		savedProduct.setDescription(product.getDescription());
+		savedProduct.setPrice(product.getPrice());
+		savedProduct.setDiscount(product.getDiscount());
+		savedProduct.setQuantity(product.getQuantity());
+		savedProduct.setSpecialPrice(calculateSpecialPrice(product));
+		return this.productRepository.save(savedProduct);
 	}
 
 	private ProductDTO productToProductDTO(Product product) {
-	    ProductDTO productDTO = new ProductDTO();
-	    productDTO.setProductId(product.getProductId());
-	    productDTO.setProductName(product.getProductName());
-	    productDTO.setDescription(product.getDescription());
-	    productDTO.setPrice(product.getPrice());
-	    productDTO.setDiscount(product.getDiscount());
-	    productDTO.setQuantity(product.getQuantity());
-	    productDTO.setSpecialPrice(product.getSpecialPrice());
-	    return productDTO;
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setProductId(product.getProductId());
+		productDTO.setProductName(product.getProductName());
+		productDTO.setDescription(product.getDescription());
+		productDTO.setPrice(product.getPrice());
+		productDTO.setDiscount(product.getDiscount());
+		productDTO.setQuantity(product.getQuantity());
+		productDTO.setSpecialPrice(product.getSpecialPrice());
+		return productDTO;
 	}
 
 	private Product productDtoToProduct(ProductDTO productDTO) {
-	    Product product = new Product();
-	    product.setProductId(productDTO.getProductId());
-	    product.setProductName(productDTO.getProductName());
-	    product.setDescription(productDTO.getDescription());
-	    product.setPrice(productDTO.getPrice());
-	    product.setDiscount(productDTO.getDiscount());
-	    product.setQuantity(productDTO.getQuantity());
-	    product.setSpecialPrice(productDTO.getSpecialPrice());
-	    return product;
+		Product product = new Product();
+		product.setProductId(productDTO.getProductId());
+		product.setProductName(productDTO.getProductName());
+		product.setDescription(productDTO.getDescription());
+		product.setPrice(productDTO.getPrice());
+		product.setDiscount(productDTO.getDiscount());
+		product.setQuantity(productDTO.getQuantity());
+		product.setSpecialPrice(productDTO.getSpecialPrice());
+		return product;
 	}
 
 }

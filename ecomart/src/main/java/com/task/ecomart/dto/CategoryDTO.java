@@ -2,10 +2,14 @@ package com.task.ecomart.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CategoryDTO {
 	
 	private Long categoryId;
 	private String categoryName;
+	
+	@JsonIgnore
 	private List<ProductDTO> products;
 
 	// Constructors

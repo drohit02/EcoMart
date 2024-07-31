@@ -31,22 +31,27 @@ public class ProductController {
         List<ProductDTO> products = this.productService.getAllProducts(pageNumber, pageSize);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+    @GetMapping("/products/{id}")
+    public ResponseEntity<ProductDTO> fetchProductById(@PathVariable(name = "id") Long productId){
+    	ProductDTO productDTO = this.productService.loadProductById(productId);
+    	return new ResponseEntity<ProductDTO>(productDTO,HttpStatus.OK);
+    } 
 
 
-    @PostMapping("/categories/{categoryId}/product")
+    @PostMapping("/products")
     public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO, @PathVariable Long categoryId) {
         ProductDTO savedProductDTO = this.productService.addProduct(productDTO, categoryId);
         return new ResponseEntity<>(savedProductDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/product/{productId}")
-    public ResponseEntity<ProductDTO> updateProductData(@RequestBody ProductDTO productDTO, @PathVariable Long productId) {
+    @PutMapping("/products/{id}")
+    public ResponseEntity<ProductDTO> updateProductData(@RequestBody ProductDTO productDTO, @PathVariable(name="id") Long productId) {
         ProductDTO updatedProductDTO = this.productService.updateExitingProductData(productDTO, productId);
         return new ResponseEntity<>(updatedProductDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/product/{productId}")
-    public ResponseEntity<String> removeProductById(@PathVariable Long productId) {
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<String> removeProductById(@PathVariable(name="id")  Long productId) {
         String deleteStatus = this.productService.deleteProductById(productId);
         return new ResponseEntity<>(deleteStatus, HttpStatus.OK);
     }

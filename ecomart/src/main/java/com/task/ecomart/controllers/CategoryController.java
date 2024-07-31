@@ -31,33 +31,33 @@ public class CategoryController {
 
 	@GetMapping("/categories")
 	public ResponseEntity<List<CategoryDTO>> getAllCatgeories(
-			@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+			@RequestParam(name = "page", defaultValue = "0") Integer page,
 			@RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize
 			) {
-		List<CategoryDTO> categoryResponse = this.categoryService.getAllCategories(pageNumber, pageSize);
+		List<CategoryDTO> categoryResponse = this.categoryService.getAllCategories(page, pageSize);
 		return ResponseEntity.status(HttpStatus.OK).body(categoryResponse);
 	}
 
-	@GetMapping("/category/{categoryId}")
-	public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Long categoryId) {
+	@GetMapping("/categories/{id}")
+	public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable(name = "id") Long categoryId) {
 		CategoryDTO categoryDTO = this.categoryService.findCategoryById(categoryId);
 		return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
 	}
 
-	@PostMapping("/category")
+	@PostMapping("/categories")
 	public ResponseEntity<CategoryDTO> creategory(@RequestBody CategoryDTO categoryDTO) {
 		CategoryDTO savedCategoryDTO = this.categoryService.createCategory(categoryDTO);
 		return new ResponseEntity<>(savedCategoryDTO, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/category/{categoryId}")
-	public ResponseEntity<CategoryDTO> deleteCategory(@PathVariable Long categoryId) {
+	@DeleteMapping("/categories/{id}")
+	public ResponseEntity<CategoryDTO> deleteCategory(@PathVariable(name="id") Long categoryId) {
 		CategoryDTO deletedCategoryDTO = this.categoryService.deleteCategory(categoryId);
 		return new ResponseEntity<>(deletedCategoryDTO, HttpStatus.OK);
 	}
 
-	@PutMapping("/category/{categoryId}")
-	public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long categoryId,
+	@PutMapping("/categories/{id}")
+	public ResponseEntity<CategoryDTO> updateCategory(@PathVariable(name = "id")Long categoryId,
 			 @RequestBody CategoryDTO category) {
 		CategoryDTO updateStatus = this.categoryService.updateCategory(categoryId, category);
 		return new ResponseEntity<>(updateStatus, HttpStatus.OK);
