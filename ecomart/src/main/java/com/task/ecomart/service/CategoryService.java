@@ -57,17 +57,13 @@ public class CategoryService {
 	    return categoryDTO;
 	}
 
-	public CategoryDTO deleteCategory(Long categoryId) {
+	public String deleteCategory(Long categoryId) {
 	    Optional<Category> findCategory = this.categoryRepository.findById(categoryId);
 	    Category savedCategory = findCategory
 	            .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
 
 	    this.categoryRepository.delete(savedCategory);
-
-	    CategoryDTO deleteCategoryDTO = new CategoryDTO();
-	    deleteCategoryDTO.setCategoryId(savedCategory.getCategoryId());
-	    deleteCategoryDTO.setCategoryName(savedCategory.getCategoryName());
-	    return deleteCategoryDTO;
+	    return "Category Reomoved Succesfully";
 	}
 
 	public CategoryDTO updateCategory(Long categoryId,CategoryDTO categoryDTO) {

@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "717a06d9-1881-4fcb-9ec2-bd05968c35a5",
+		"name": "Task-CRUD",
+		"description": "This Postman collection provides a comprehensive set of endpoints for managing products and categories in an e-commerce platform. The collection is organized into two main sections: Categories and Products. Each section includes endpoints for creating, retrieving, updating, and deleting resources. The API also supports pagination for retrieving lists of products and categories.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33048638",
+		"_collection_link": "https://backend-freaks.postman.co/workspace/Backend-Freaks-Workspace~065baa66-9281-41f0-8063-3dd5813c209c/collection/33048638-717a06d9-1881-4fcb-9ec2-bd05968c35a5?action=share&source=collection_link&creator=33048638"
+	},
+	"item": [
+		{
+			"name": "CategoryAPI",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories?page=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Fetch a paginated list of all categories, allowing you to view and manage the categories available in the system.EndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/categories/1",
+						"description": "Obtain detailed information about a specific category by its ID, providing insights into the attributes and data associated with that category."
+					},
+					"response": []
+				},
+				{
+					"name": "Update the Category Data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\" : \"Electronics Updated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/categories/1",
+						"description": "Modify the details of an existing category, including its name and other attributes, ensuring that category information remains current and accurate"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category By id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/categories/4",
+						"description": "Remove a category from the system by its ID, useful for maintaining an organized and relevant category list."
+					},
+					"response": []
+				},
+				{
+					"name": "save category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\":\"Electronics\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/categories",
+						"description": "Obtain detailed information about a specific category by its ID, providing insights into the attributes and data associated with that category."
+					},
+					"response": []
+				}
+			],
+			"description": "The Categories folder in this Postman collection provides a comprehensive set of API endpoints for managing categories in an e-commerce platform. It includes functionalities for retrieving all categories, fetching details of specific categories, creating new categories, updating existing ones, and deleting categories. These operations allow you to efficiently organize and manage category data, ensuring your product catalog remains well-structured and up-to-date."
+		},
+		{
+			"name": "ProductAPI",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products?page=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						},
+						"description": "Fetch a paginated list of all products, allowing you to view and manage the complete product inventory in the system."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/products/1",
+						"description": "Obtain details of a specific product using its ID, providing access to individual product information for viewing or further management."
+					},
+					"response": []
+				},
+				{
+					"name": "Save product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productName\": \"Smartphone\",\r\n  \"description\": \"A high-end smartphone with advanced features.\",\r\n  \"quantity\": 50,\r\n  \"price\": 1000,\r\n  \"discount\": 10,\r\n  \"category\": {\r\n    \"categoryName\": \"Electronics\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/products",
+						"description": "Create a new product in the system, expanding the product catalog and enhancing the variety available to customers."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product Data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productName\": \"T-Shirt\",\r\n  \"description\": \"Comfortable cotton t-shirt available in various sizes.\",\r\n  \"quantity\": 200,\r\n  \"price\": 750,\r\n  \"discount\": 5,\r\n  \"category\": {\r\n    \"categoryName\": \"Clothing\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/products/4",
+						"description": "Modify the details of an existing product, such as name, description, price, quantity, and discount, ensuring that product information is always up-to-date."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product By id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/products/4",
+						"description": "Remove a product from the system by its ID, useful for managing the product inventory and ensuring that only relevant products are listed."
+					},
+					"response": []
+				}
+			],
+			"description": "The Products folder in this Postman collection offers a complete range of API endpoints for managing products within the e-commerce platform. It includes functionalities for retrieving all products, fetching products by category, searching for products using keywords, creating new products, updating existing product details, and deleting products. These endpoints facilitate comprehensive product management, enabling you to handle product data efficiently and maintain a dynamic and organized product catalog."
+		}
+	]
+}

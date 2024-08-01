@@ -26,9 +26,9 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity<List<ProductDTO>> findAllProducts(
-            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize) {
-        List<ProductDTO> products = this.productService.getAllProducts(pageNumber, pageSize);
+        List<ProductDTO> products = this.productService.getAllProducts(page, pageSize);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
     @GetMapping("/products/{id}")
@@ -39,8 +39,8 @@ public class ProductController {
 
 
     @PostMapping("/products")
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO, @PathVariable Long categoryId) {
-        ProductDTO savedProductDTO = this.productService.addProduct(productDTO, categoryId);
+    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO) {
+        ProductDTO savedProductDTO = this.productService.addProduct(productDTO);
         return new ResponseEntity<>(savedProductDTO, HttpStatus.CREATED);
     }
 
