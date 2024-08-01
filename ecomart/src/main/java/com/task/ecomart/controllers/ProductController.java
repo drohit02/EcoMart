@@ -1,5 +1,6 @@
 package com.task.ecomart.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.task.ecomart.customexception.MessageResponse;
 import com.task.ecomart.dto.ProductDTO;
 import com.task.ecomart.service.ProductService;
 
@@ -51,9 +53,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<String> removeProductById(@PathVariable(name="id")  Long productId) {
+    public ResponseEntity<MessageResponse> removeProductById(@PathVariable(name="id")  Long productId) {
         String deleteStatus = this.productService.deleteProductById(productId);
-        return new ResponseEntity<>(deleteStatus, HttpStatus.OK);
+        return new ResponseEntity<>(new MessageResponse(LocalDateTime.now(), HttpStatus.OK.name(), deleteStatus), HttpStatus.OK);
     }
 
 }

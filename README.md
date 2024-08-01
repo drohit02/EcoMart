@@ -29,7 +29,7 @@ To deploy this project run
 ## Documentation
 
 For more details, you can view the complete JSON documentation(Your Browser Should Have JSON Formatter):
-- [Open API Documentation](/ecomart/src/main/resources/static/docs/api-doc.json)
+- [Open API Documentation](https://documenter.getpostman.com/view/33048638/2sA3kdAHLZ)
 
 
 ## API Reference

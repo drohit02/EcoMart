@@ -1,5 +1,6 @@
 package com.task.ecomart.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.task.ecomart.customexception.MessageResponse;
 import com.task.ecomart.dto.CategoryDTO;
 import com.task.ecomart.service.CategoryService;
 
@@ -51,9 +53,9 @@ public class CategoryController {
 	}
 
 	@DeleteMapping("/categories/{id}")
-	public ResponseEntity<String> deleteCategory(@PathVariable(name="id") Long categoryId) {
+	public ResponseEntity<MessageResponse> deleteCategory(@PathVariable(name="id") Long categoryId) {
 		String deleteStatus = this.categoryService.deleteCategory(categoryId);
-		return new ResponseEntity<>(deleteStatus, HttpStatus.OK);
+		return new ResponseEntity<>(new MessageResponse(LocalDateTime.now(), HttpStatus.OK.name(), deleteStatus), HttpStatus.OK);
 	}
 
 	@PutMapping("/categories/{id}")
